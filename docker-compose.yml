@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: sobremesa-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - SERVER_PORT=3000
+      - DB_URI_PROD=${DB_URI_PROD}
+      - JWT_SECRET=${JWT_SECRET}
+      - FE_URI=${FE_URI}
+    networks:
+      - sobremesa-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      args:
+        - VITE_API_URL=${VITE_API_URL}
+    container_name: sobremesa-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - sobremesa-network
+
+networks:
+  sobremesa-network:
+    driver: bridge

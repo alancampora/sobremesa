@@ -1,0 +1,35 @@
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+COPY server/package*.json ./server/
+COPY common/package*.json ./common/
+
+RUN npm install
+RUN cd server && npm install
+RUN cd common && npm install
+
+COPY common ./common
+COPY server ./server
+
+RUN npm run build:common
+
+WORKDIR /app/server
+RUN npm run build
+
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/server/package*.json ./
+COPY --from=builder /app/server/node_modules ./node_modules
+COPY --from=builder /app/server/dist ./dist
+COPY --from=builder /app/common ./common
+
+ENV NODE_ENV=production
+ENV SERVER_PORT=3000
+
+EXPOSE 3000
+
+CMD ["node", "dist/index.js"]

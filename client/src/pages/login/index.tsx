@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,8 +13,8 @@ import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Link, useNavigate } from "react-router";
 import { fetchAuth } from "@/api/auth";
-import { IUser } from "@common/User";
 import { useAuth } from "@/context/auth";
+import { NavigationMenu } from "@/components/navigationMenu";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -24,25 +23,12 @@ export default function Login() {
   const [error, setError] = useState("");
   const { refetchUser } = useAuth();
 
-  const handleSuccessGoogle =
-    (navigate: any) => async (credentials: CredentialResponse) => {
-      await fetchAuth({
-        data: credentials,
-        endpoint: "login/google",
-        successCallback: async () => {
-          const test = await refetchUser();
-          navigate("/home");
-        },
-        errorCallback: (err: string) => setError(err),
-      });
-    };
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     if (!email || !password) {
-      setError("Please enter both username and password.");
+      setError("Ingresá tu email y contraseña");
       return;
     }
 
@@ -51,40 +37,41 @@ export default function Login() {
       endpoint: "login/common",
       successCallback: async () => {
         await refetchUser();
-        navigate("/home");
+        navigate("/cartelera");
       },
       errorCallback: (err: string) => setError(err),
     });
   };
 
   return (
-    <main className="flex flex-col sm:flex-row space-x-10 bg-gray-100">
-      <div className="p-4 grow">
-        <Card className="w-full max-w-md mx-auto">
+    <>
+      <NavigationMenu />
+      <main className="flex items-center justify-center p-4 mt-8">
+        <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-center">
-              Login
+              Iniciar sesión
             </CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
-                  type="text"
-                  placeholder="Enter your email"
+                  type="email"
+                  placeholder="tu@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Contraseña</Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Enter your password"
+                  placeholder="Tu contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -96,39 +83,24 @@ export default function Login() {
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
-              <Button type="submit" className="w-full" onClick={handleLogin}>
-                Login
+              <Button type="submit" className="w-full">
+                Iniciar sesión
               </Button>
             </form>
           </CardContent>
           <CardFooter className="justify-center">
             <p className="text-sm text-center">
-              Don't have an account?{" "}
+              ¿No tenés cuenta?{" "}
               <Link
                 to={{ pathname: "/signup" }}
                 className="text-blue-500 hover:underline"
               >
-                Click here to create your user
+                Crear cuenta
               </Link>
             </p>
           </CardFooter>
         </Card>
-      </div>
-
-      <div className="bg-gray-200 grow p-4">
-        <Card className="w-full max-w-md mx-auto">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center">
-              Or Login with Google
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center">
-              <GoogleLogin onSuccess={handleSuccessGoogle(navigate)} />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

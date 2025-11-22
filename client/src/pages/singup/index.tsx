@@ -3,12 +3,14 @@ import { useNavigate, Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -16,71 +18,87 @@ import { NavigationMenu } from "@/components/navigationMenu";
 import { singup } from "@/api/auth";
 
 export default function SignupPage() {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [context, setContext] = useState("");
+  const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!username || !email || !password || !confirmPassword) {
-      setError("All fields are required.");
+    if (!name || !context || !email || !password || !confirmPassword) {
+      setError("Nombre, contexto, email y contraseña son obligatorios.");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError("Las contraseñas no coinciden.");
       return;
     }
 
-    // Here you would typically make an API call to create the user
-    console.log("Signup attempt with:", { username, email, password });
-    // For demo purposes, we'll just log the attempt and clear the form
-    setUsername("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-    // In a real app, you'd handle the response and redirect on success
-    // router.push("/login")
-  };
-
-  const handleSingUp = async (e: any) => {
-    e.preventDefault();
-
     await singup({
-      data: { email, username, password },
+      data: { email, password, name, context, bio },
       successCallback: () => {
         navigate("/login");
       },
-      errorCallback: (error: string) => console.log(error)
-    })
+      errorCallback: (error: string) => setError(error),
+    });
   };
 
   return (
     <>
       <NavigationMenu />
-      <main className="w-full min-w-md flex items-center justify-center p-4">
+      <main className="w-full min-w-md flex items-center justify-center p-4 mt-8">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-center">
-              Sign Up
+              Crear cuenta
             </CardTitle>
+            <CardDescription className="text-center">
+              Datos mínimos, sin métricas ni gamificación
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSignUp} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="name">Nombre real</Label>
                 <Input
-                  id="username"
+                  id="name"
                   type="text"
-                  placeholder="Choose a username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Tu nombre"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="context">Contexto</Label>
+                <Input
+                  id="context"
+                  type="text"
+                  placeholder="Ej: Estudiante de Filosofía - UBA"
+                  value={context}
+                  onChange={(e) => setContext(e.target.value)}
+                  required
+                />
+                <p className="text-xs text-muted-foreground">
+                  Carrera/facultad/ciudad/ocupación
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="bio">Bio (opcional)</Label>
+                <Textarea
+                  id="bio"
+                  placeholder="2-3 líneas sobre vos"
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                  className="resize-none"
+                  rows={3}
                 />
               </div>
               <div className="space-y-2">
@@ -88,29 +106,29 @@ export default function SignupPage() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="tu@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Contraseña</Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Create a password"
+                  placeholder="Crear contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="confirm-password">Confirm Password</Label>
+                <Label htmlFor="confirm-password">Confirmar contraseña</Label>
                 <Input
                   id="confirm-password"
                   type="password"
-                  placeholder="Confirm your password"
+                  placeholder="Repetir contraseña"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
@@ -122,19 +140,19 @@ export default function SignupPage() {
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
-              <Button type="submit" className="w-full" onClick={handleSingUp}>
-                Sign Up
+              <Button type="submit" className="w-full">
+                Crear cuenta
               </Button>
             </form>
           </CardContent>
           <CardFooter className="justify-center">
             <p className="text-sm text-center">
-              Already have an account?{" "}
+              ¿Ya tenés cuenta?{" "}
               <Link
                 to={{ pathname: "/login" }}
                 className="text-blue-500 hover:underline"
               >
-                Log in here
+                Iniciar sesión
               </Link>
             </p>
           </CardFooter>

@@ -1,21 +1,31 @@
+import { useEffect } from "react";
 import Landing from "@/components/landing";
 import { useAuth } from "@/context/auth";
-import { useNavigate } from "react-router-dom";
-import Home from "../home";
+import { useNavigate } from "react-router";
 
-type Props = {};
-
-export default function LandingMain({}: Props) {
+export default function LandingMain() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
 
+  useEffect(() => {
+    // Si el usuario está logueado, redirigir a cartelera
+    if (user && !loading) {
+      navigate("/cartelera");
+    }
+  }, [user, loading, navigate]);
+
   const handleLogin = () => {
-    navigate("/login"); // Replace '/target-path' with your desired route
+    navigate("/login");
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-muted-foreground">Cargando...</p>
+      </div>
+    );
   }
 
-  return user ? <Home /> : <Landing onLogin={handleLogin} />;
+  // Solo mostrar landing si no hay usuario
+  return user ? null : <Landing onLogin={handleLogin} />;
 }

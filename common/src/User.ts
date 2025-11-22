@@ -1,6 +1,10 @@
 export type IUser = {
+  _id?: string;
   email: string;
   password?: string;
-  username: string;
+  name: string;
+  context: string;
+  bio?: string;
+  photo?: string;
   googleId?: string;
 };

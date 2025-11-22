@@ -53,12 +53,19 @@ router.post("/google", async (req: Request, res: any) => {
       return res.status(401).json({ message: "Invalid Google token" });
     }
 
-    const { sub: googleId, email, name: username } = payload;
+    const { sub: googleId, email, name } = payload;
 
     let user = await User.findOne({ googleId });
 
     if (!user) {
-      user = new User({ googleId, email, username });
+      // For Google users, we'll require them to complete their profile later
+      // For now, use email as context placeholder
+      user = new User({
+        googleId,
+        email,
+        name: name || email.split('@')[0],
+        context: '' // Will be filled in profile completion
+      });
       await user.save();
     }
 

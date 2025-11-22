@@ -1,14 +1,17 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/home/index.tsx";
 import Login from "./pages/login/index.tsx";
 import Singup from "./pages/singup/index.tsx";
 import { AuthProvider } from "./context/auth.tsx";
 import Landing from "./pages/landing/index.tsx";
 import Profile from "./pages/profile/index.tsx";
 import ProtectedRoute from "./components/protected-route.tsx";
+import Cartelera from "./pages/cartelera/index.tsx";
+import NuevaSobremesa from "./pages/sobremesa-nueva/index.tsx";
+import SobremesaDetalle from "./pages/sobremesa-detalle/index.tsx";
+import SobremesaSeleccionar from "./pages/sobremesa-seleccionar/index.tsx";
+import MisSobremesas from "./pages/mis-sobremesas/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -16,10 +19,34 @@ const router = createBrowserRouter([
     element: <Landing />,
   },
   {
-    path: "/home",
+    path: "/cartelera",
+    element: <Cartelera />,
+  },
+  {
+    path: "/sobremesa/nueva",
     element: (
       <ProtectedRoute>
-        <Home />
+        <NuevaSobremesa />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/sobremesa/:id",
+    element: <SobremesaDetalle />,
+  },
+  {
+    path: "/sobremesa/:id/seleccionar",
+    element: (
+      <ProtectedRoute>
+        <SobremesaSeleccionar />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/mis-sobremesas",
+    element: (
+      <ProtectedRoute>
+        <MisSobremesas />
       </ProtectedRoute>
     ),
   },
@@ -42,9 +69,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")!).render(
-  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  </GoogleOAuthProvider>,
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>,
 );

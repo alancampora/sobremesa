@@ -3,10 +3,11 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import businessObjectRoutes from "./routes/BusinessObject";
 import authRoutes from "./routes/Auth";
 import loginRoutes from "./routes/Login";
 import userRoutes from "./routes/User";
+import sobremesaRoutes from "./routes/Sobremesa";
+import cartaRoutes from "./routes/CartaIntencion";
 
 dotenv.config();
 
@@ -23,10 +24,11 @@ app.use(
 );
 
 // Routes
-app.use("/business-objects", businessObjectRoutes);
 app.use("/auth", authRoutes);
 app.use("/login", loginRoutes);
 app.use("/users", userRoutes);
+app.use("/sobremesas", sobremesaRoutes);
+app.use("/cartas", cartaRoutes);
 
 app.listen(PORT, () => {
   const connectionString =

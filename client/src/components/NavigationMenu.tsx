@@ -1,44 +1,60 @@
 "use client";
 
 import { useState } from "react";
-import { Link } from "react-router";
-import { Laptop, Menu, SquareChevronRight } from "lucide-react";
+import { Link, useNavigate } from "react-router";
+import { Menu, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/context/auth";
 
-const navItems = [{ name: "Home", href: "/" }];
+const navItems = [
+  { name: "Cartelera", href: "/cartelera" },
+  { name: "Mis sobremesas", href: "/mis-sobremesas", protected: true },
+];
 
 export function NavigationMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, loading: isLoadingUser } = useAuth();
-  //const pathname = usePathname()
-  const pathname = "";
+  const { user, loading: isLoadingUser, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout({
+      finallyCallback: () => {
+        window.location.href = "/cartelera";
+      },
+    });
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b mb-4 bg-stone-50">
       <div className="flex h-14 items-center p-4">
         <div className="mr-4 hidden md:flex">
-          <Link to={"/"} className="mr-6 flex items-center space-x-2">
-            <SquareChevronRight className="h-6 w-6" />
-            <span className="hidden font-bold sm:inline-block">Codeteca</span>
+          <Link to={"/cartelera"} className="mr-6 flex items-center space-x-2">
+            <span className="text-2xl">🍷</span>
+            <span className="hidden font-bold sm:inline-block">Sobremesa</span>
           </Link>
 
           <nav className="flex items-center space-x-6 text-sm font-medium">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={{ pathname: item.href }}
-                className={`transition-colors hover:text-foreground/80 ${
-                  pathname === item.href
-                    ? "text-foreground"
-                    : "text-foreground/60"
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navItems
+              .filter((item) => !item.protected || user)
+              .map((item) => (
+                <Link
+                  key={item.href}
+                  to={{ pathname: item.href }}
+                  className="transition-colors hover:text-foreground/80 text-foreground/60"
+                >
+                  {item.name}
+                </Link>
+              ))}
           </nav>
         </div>
 
@@ -54,40 +70,86 @@ export function NavigationMenu() {
           </SheetTrigger>
           <SheetContent side="left" className="pr-0">
             <Link
-              to="/"
+              to="/cartelera"
               className="flex items-center"
               onClick={() => setIsOpen(false)}
             >
-              <Laptop className="mr-2 h-4 w-4" />
-              <span className="font-bold">MyApp</span>
+              <span className="text-2xl mr-2">🍷</span>
+              <span className="font-bold">Sobremesa</span>
             </Link>
             <nav className="mt-4 flex flex-col space-y-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`block px-2 py-1 text-lg ${
-                    pathname === item.href
-                      ? "text-foreground"
-                      : "text-foreground/60"
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navItems
+                .filter((item) => !item.protected || user)
+                .map((item) => (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className="block px-2 py-1 text-lg text-foreground/60"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
             </nav>
           </SheetContent>
         </Sheet>
+
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            {/* You can add a search input here if needed */}
-          </div>
-          <nav className="flex items-center">
-            <Avatar>
-              <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
-              <AvatarFallback>{user?.username}</AvatarFallback>
-            </Avatar>
+          <div className="w-full flex-1 md:w-auto md:flex-none"></div>
+          <nav className="flex items-center gap-2">
+            {!user ? (
+              <>
+                <Link to="/login">
+                  <Button variant="ghost" size="sm">
+                    Iniciar sesión
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button size="sm">Crear cuenta</Button>
+                </Link>
+              </>
+            ) : (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                    <Avatar>
+                      <AvatarImage src={user.photo} alt={user.name} />
+                      <AvatarFallback>
+                        {user.name?.charAt(0).toUpperCase() || "?"}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {user.name}
+                      </p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile" className="w-full cursor-pointer">
+                      Perfil
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/mis-sobremesas" className="w-full cursor-pointer">
+                      Mis sobremesas
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Cerrar sesión
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </nav>
         </div>
       </div>

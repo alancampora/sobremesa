@@ -25,10 +25,12 @@ export const authenticateToken = async (
 
     // Attach user to the request object for later use
     (req as any).user = {
-      username: user.username,
+      name: user.name,
       email: user.email,
-      id: user._id,
-      description: user?.description,
+      id: user._id.toString(), // Convert ObjectId to string for comparisons
+      context: user.context,
+      bio: user.bio,
+      photo: user.photo,
     };
     next();
   } catch (error) {

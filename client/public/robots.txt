@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://sobremesa.soypsico.com/sitemap.xml
+

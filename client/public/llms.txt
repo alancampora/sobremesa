@@ -1,0 +1,46 @@
+# Sobremesa
+
+> Plataforma de encuentros sincrónicos para conversaciones profundas entre personas.
+
+Sobremesa es una alternativa anti-extractiva a las redes sociales tradicionales. No hay likes, followers, ni algoritmos. Solo personas que quieren conversar sobre temas que les importan, en grupos pequeños de 6-10 personas, con video obligatorio desde el inicio.
+
+## Qué es Sobremesa
+
+Una plataforma donde personas proponen conversaciones sobre temas específicos, otros escriben cartas de intención para sumarse, y el convocante selecciona participantes para encuentros sincrónicos por video.
+
+## Cómo funciona
+
+1. Alguien propone una sobremesa en la cartelera pública (tema, fecha, hora)
+2. Interesados escriben cartas de intención (200-300 palabras explicando por qué quieren participar)
+3. El convocante lee las cartas y selecciona participantes (decisión humana, no algorítmica)
+4. Se encuentran por videollamada sincrónica (video obligatorio)
+5. Después del encuentro, los participantes quedan registrados como "la mesa"
+
+## Filosofía
+
+Inspirado en el concepto de tecnodiversidad de Yuk Hui y en la tradición latinoamericana de la "sobremesa" - ese tiempo después de comer donde la conversación se extiende sin propósito productivo.
+
+Principios:
+- Sin métricas, sin gamificación, sin extracción de datos
+- El encuentro importa más que la conexión
+- La vulnerabilidad (mostrar el rostro) genera responsabilidad
+- Deliberadamente ineficiente: la profundidad requiere tiempo
+
+## Características
+
+- Grupos pequeños: 6-10 personas máximo
+- Video obligatorio desde el inicio
+- Selección humana de participantes (no algorítmica)
+- Cartas de intención de 200-300 palabras
+- Sin likes, followers, ni métricas visibles
+- Encuentros sincrónicos (todos presentes al mismo tiempo)
+
+## Links
+
+- Web: https://sobremesa.soypsico.com
+- Cartelera: https://sobremesa.soypsico.com/cartelera
+
+## Contexto
+
+Desarrollado en Argentina como respuesta a la crisis de salud mental asociada a redes sociales extractivas. Busca recuperar el valor del encuentro humano genuino mediado por tecnología que no monetiza la subjetividad.
+

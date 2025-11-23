@@ -8,7 +8,7 @@ services:
     container_name: sobremesa-backend
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3001:3000"
     environment:
       - NODE_ENV=production
       - SERVER_PORT=3000
@@ -27,7 +27,7 @@ services:
     container_name: sobremesa-frontend
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - backend
     networks:

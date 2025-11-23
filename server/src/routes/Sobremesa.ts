@@ -7,7 +7,7 @@ import { authenticateToken } from "../middleware/auth";
 const router = express.Router();
 
 // Get all proposed sobremesas (public cartelera)
-router.get("/cartelera", async (req: Request, res: Response) => {
+router.get("/cartelera", async (req: Request, res: Response): Promise<void> => {
   try {
     const sobremesas = await Sobremesa.find({ status: "proposed" })
       .populate("convocante_id", "name context photo")
@@ -20,7 +20,7 @@ router.get("/cartelera", async (req: Request, res: Response) => {
 });
 
 // Get single sobremesa by ID
-router.get("/:id", async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response): Promise<void> => {
   try {
     const sobremesa = await Sobremesa.findById(req.params.id).populate(
       "convocante_id",
@@ -28,7 +28,8 @@ router.get("/:id", async (req: Request, res: Response) => {
     );
 
     if (!sobremesa) {
-      return res.status(404).json({ message: "Sobremesa not found" });
+      res.status(404).json({ message: "Sobremesa not found" });
+      return;
     }
 
     res.json(sobremesa);
@@ -38,12 +39,13 @@ router.get("/:id", async (req: Request, res: Response) => {
 });
 
 // Create new sobremesa (requires auth)
-router.post("/", authenticateToken, async (req: any, res: Response) => {
+router.post("/", authenticateToken, async (req: any, res: Response): Promise<void> => {
   const { title, description, date_time, max_participants } = req.body;
   const convocante_id = req.user.id;
 
   if (!title || !description || !date_time || !max_participants) {
-    return res.status(400).json({ message: "All fields are required" });
+    res.status(400).json({ message: "All fields are required" });
+    return;
   }
 
   try {
@@ -74,7 +76,7 @@ router.post("/", authenticateToken, async (req: any, res: Response) => {
 });
 
 // Get my sobremesas (as convocante or participant)
-router.get("/mis-sobremesas/all", authenticateToken, async (req: any, res: Response) => {
+router.get("/mis-sobremesas/all", authenticateToken, async (req: any, res: Response): Promise<void> => {
   const userId = req.user.id;
 
   try {
@@ -88,8 +90,8 @@ router.get("/mis-sobremesas/all", authenticateToken, async (req: any, res: Respo
       })
       .sort({ created_at: -1 });
 
-    const sobremesas = participaciones.map((p) => ({
-      ...p.sobremesa_id.toObject(),
+    const sobremesas = participaciones.map((p: any) => ({
+      ...(p.sobremesa_id as any).toObject(),
       my_role: p.role,
     }));
 
@@ -100,7 +102,7 @@ router.get("/mis-sobremesas/all", authenticateToken, async (req: any, res: Respo
 });
 
 // Update sobremesa status (convocante only)
-router.patch("/:id/status", authenticateToken, async (req: any, res: Response) => {
+router.patch("/:id/status", authenticateToken, async (req: any, res: Response): Promise<void> => {
   const { status } = req.body;
   const userId = req.user.id;
 
@@ -108,12 +110,14 @@ router.patch("/:id/status", authenticateToken, async (req: any, res: Response) =
     const sobremesa = await Sobremesa.findById(req.params.id);
 
     if (!sobremesa) {
-      return res.status(404).json({ message: "Sobremesa not found" });
+      res.status(404).json({ message: "Sobremesa not found" });
+      return;
     }
 
     // Check if user is the convocante
     if (sobremesa.convocante_id.toString() !== userId) {
-      return res.status(403).json({ message: "Only convocante can update status" });
+      res.status(403).json({ message: "Only convocante can update status" });
+      return;
     }
 
     sobremesa.status = status;
@@ -126,7 +130,7 @@ router.patch("/:id/status", authenticateToken, async (req: any, res: Response) =
 });
 
 // Update meeting link (convocante only)
-router.patch("/:id/meeting-link", authenticateToken, async (req: any, res: Response) => {
+router.patch("/:id/meeting-link", authenticateToken, async (req: any, res: Response): Promise<void> => {
   const { meeting_link } = req.body;
   const userId = req.user.id;
 
@@ -134,12 +138,14 @@ router.patch("/:id/meeting-link", authenticateToken, async (req: any, res: Respo
     const sobremesa = await Sobremesa.findById(req.params.id);
 
     if (!sobremesa) {
-      return res.status(404).json({ message: "Sobremesa not found" });
+      res.status(404).json({ message: "Sobremesa not found" });
+      return;
     }
 
     // Check if user is the convocante
     if (sobremesa.convocante_id.toString() !== userId) {
-      return res.status(403).json({ message: "Only convocante can update meeting link" });
+      res.status(403).json({ message: "Only convocante can update meeting link" });
+      return;
     }
 
     sobremesa.meeting_link = meeting_link;

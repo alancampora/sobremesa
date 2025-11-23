@@ -5,13 +5,14 @@ import { authenticateToken } from "../middleware/auth";
 const router = express.Router();
 
 // Update user profile endpoint
-router.patch("/:id", authenticateToken, async (req: any, res: Response) => {
+router.patch("/:id", authenticateToken, async (req: any, res: Response): Promise<void> => {
   const { id } = req.params;
   const { name, context, bio, photo } = req.body;
 
   // Verify user is updating their own profile
   if (req.user.id !== id) {
-    return res.status(403).json({ message: "You can only update your own profile" });
+    res.status(403).json({ message: "You can only update your own profile" });
+    return;
   }
 
   try {
@@ -28,7 +29,8 @@ router.patch("/:id", authenticateToken, async (req: any, res: Response) => {
     );
 
     if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
+      res.status(404).json({ message: "User not found" });
+      return;
     }
 
     res.status(200).json(updatedUser);

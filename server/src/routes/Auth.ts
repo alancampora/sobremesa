@@ -7,11 +7,12 @@ import { authenticateToken } from "../middleware/auth";
 import { User } from "../models/User";
 const router = express.Router();
 
-router.post("/register", async (req: Request, res: Response<Error | IUser>) => {
+router.post("/register", async (req: Request, res: Response<Error | IUser>): Promise<void> => {
   const { email, password, name, context, bio, photo } = req.body;
 
   if (!email || !password || !name || !context) {
     res.status(400).json({ message: "Email, password, name, and context are required" });
+    return;
   }
 
   try {
@@ -19,6 +20,7 @@ router.post("/register", async (req: Request, res: Response<Error | IUser>) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       res.status(409).json({ message: "Email already in use" });
+      return;
     }
 
     // Hash the password

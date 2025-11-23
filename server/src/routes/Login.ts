@@ -14,7 +14,7 @@ const generateToken = (userId: string) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET!, { expiresIn: "7d" });
 };
 
-router.post("/common", async (req: Request, res: any) => {
+router.post("/common", async (req: Request, res: any): Promise<void> => {
   const { email, password } = req.body;
 
   try {
@@ -43,7 +43,7 @@ router.post("/common", async (req: Request, res: any) => {
 });
 
 // Google Login
-router.post("/google", async (req: Request, res: any) => {
+router.post("/google", async (req: Request, res: any): Promise<void> => {
   const { credential: idToken } = req.body;
 
   try {

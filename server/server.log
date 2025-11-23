@@ -7,3 +7,93 @@
 (Use `node --trace-deprecation ...` to show where the warning was created)
 Server running on port 3000
 MongoDB connected
+[INFO] 09:40:39 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/CartaIntencion.ts has been modified
+(node:98916) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:42:58 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:99288) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:42:59 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:99310) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:42:59 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:99312) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:43:00 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:99323) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:45:51 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:99748) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:45:52 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:99754) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:45:52 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:99760) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:45:53 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:99766) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:46:03 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/User.ts has been modified
+(node:99814) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:46:14 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Auth.ts has been modified
+(node:99859) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:46:20 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Login.ts has been modified
+(node:99891) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:47:43 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:321) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:47:44 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:354) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:47:44 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:389) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:47:45 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:407) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:47:54 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/User.ts has been modified
+(node:629) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected
+[INFO] 09:55:08 Restarting: /Users/acampora/projects/sobremesa/server/src/routes/Sobremesa.ts has been modified
+(node:1678) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 3000
+MongoDB connected

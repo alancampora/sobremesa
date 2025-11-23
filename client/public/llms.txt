@@ -1,39 +1,37 @@
-# Sobremesa
+> Plataforma de encuentros sincronicos para conversaciones profundas entre personas.
 
-> Plataforma de encuentros sincrónicos para conversaciones profundas entre personas.
+Sobremesa es una alternativa anti-extractiva a las redes sociales tradicionales. No hay likes, followers, ni algoritmos. Solo personas que quieren conversar sobre temas que les importan, en grupos pequenos de 6-10 personas, con video obligatorio desde el inicio.
 
-Sobremesa es una alternativa anti-extractiva a las redes sociales tradicionales. No hay likes, followers, ni algoritmos. Solo personas que quieren conversar sobre temas que les importan, en grupos pequeños de 6-10 personas, con video obligatorio desde el inicio.
+## Que es Sobremesa
 
-## Qué es Sobremesa
+Una plataforma donde personas proponen conversaciones sobre temas especificos, otros escriben cartas de intencion para sumarse, y el convocante selecciona participantes para encuentros sincronicos por video.
 
-Una plataforma donde personas proponen conversaciones sobre temas específicos, otros escriben cartas de intención para sumarse, y el convocante selecciona participantes para encuentros sincrónicos por video.
+## Como funciona
 
-## Cómo funciona
+1. Alguien propone una sobremesa en la cartelera publica (tema, fecha, hora)
+2. Interesados escriben cartas de intencion (200-300 palabras explicando por que quieren participar)
+3. El convocante lee las cartas y selecciona participantes (decision humana, no algoritmica)
+4. Se encuentran por videollamada sincronica (video obligatorio)
+5. Despues del encuentro, los participantes quedan registrados como "la mesa"
 
-1. Alguien propone una sobremesa en la cartelera pública (tema, fecha, hora)
-2. Interesados escriben cartas de intención (200-300 palabras explicando por qué quieren participar)
-3. El convocante lee las cartas y selecciona participantes (decisión humana, no algorítmica)
-4. Se encuentran por videollamada sincrónica (video obligatorio)
-5. Después del encuentro, los participantes quedan registrados como "la mesa"
+## Filosofia
 
-## Filosofía
-
-Inspirado en el concepto de tecnodiversidad de Yuk Hui y en la tradición latinoamericana de la "sobremesa" - ese tiempo después de comer donde la conversación se extiende sin propósito productivo.
+Inspirado en el concepto de tecnodiversidad de Yuk Hui y en la tradicion latinoamericana de la "sobremesa" - ese tiempo despues de comer donde la conversacion se extiende sin proposito productivo.
 
 Principios:
-- Sin métricas, sin gamificación, sin extracción de datos
-- El encuentro importa más que la conexión
+- Sin metricas, sin gamificacion, sin extraccion de datos
+- El encuentro importa mas que la conexion
 - La vulnerabilidad (mostrar el rostro) genera responsabilidad
 - Deliberadamente ineficiente: la profundidad requiere tiempo
 
-## Características
+## Caracteristicas
 
-- Grupos pequeños: 6-10 personas máximo
+- Grupos pequenos: 6-10 personas maximo
 - Video obligatorio desde el inicio
-- Selección humana de participantes (no algorítmica)
-- Cartas de intención de 200-300 palabras
-- Sin likes, followers, ni métricas visibles
-- Encuentros sincrónicos (todos presentes al mismo tiempo)
+- Seleccion humana de participantes (no algoritmica)
+- Cartas de intencion de 200-300 palabras
+- Sin likes, followers, ni metricas visibles
+- Encuentros sincronicos (todos presentes al mismo tiempo)
 
 ## Links
 
@@ -42,5 +40,4 @@ Principios:
 
 ## Contexto
 
-Desarrollado en Argentina como respuesta a la crisis de salud mental asociada a redes sociales extractivas. Busca recuperar el valor del encuentro humano genuino mediado por tecnología que no monetiza la subjetividad.
-
+Desarrollado en Argentina como respuesta a la crisis de salud mental asociada a redes sociales extractivas. Busca recuperar el valor del encuentro humano genuino mediado por tecnologia que no monetiza la subjetividad.

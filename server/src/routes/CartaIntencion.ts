@@ -8,40 +8,42 @@ import { authenticateToken } from "../middleware/auth";
 const router = express.Router();
 
 // Submit carta de intención (requires auth)
-router.post("/", authenticateToken, async (req: any, res: Response) => {
+router.post("/", authenticateToken, async (req: any, res: Response): Promise<void> => {
   const { sobremesa_id, text } = req.body;
   const user_id = req.user.id;
 
   if (!sobremesa_id || !text) {
-    return res.status(400).json({ message: "Sobremesa ID and text are required" });
+    res.status(400).json({ message: "Sobremesa ID and text are required" });
+    return;
   }
 
-  // Validate text length (200-300 words suggested, but let's be flexible)
   const wordCount = text.trim().split(/\s+/).length;
   if (wordCount < 50 || wordCount > 500) {
-    return res.status(400).json({ message: "Text should be between 50 and 500 words" });
+    res.status(400).json({ message: "Text should be between 50 and 500 words" });
+    return;
   }
 
   try {
-    // Check if sobremesa exists and is still in proposed status
     const sobremesa = await Sobremesa.findById(sobremesa_id);
     if (!sobremesa) {
-      return res.status(404).json({ message: "Sobremesa not found" });
+      res.status(404).json({ message: "Sobremesa not found" });
+      return;
     }
 
     if (sobremesa.status !== "proposed") {
-      return res.status(400).json({ message: "Cannot apply to this sobremesa anymore" });
+      res.status(400).json({ message: "Cannot apply to this sobremesa anymore" });
+      return;
     }
 
-    // Check if user is the convocante
     if (sobremesa.convocante_id.toString() === user_id) {
-      return res.status(400).json({ message: "Convocante cannot submit a carta" });
+      res.status(400).json({ message: "Convocante cannot submit a carta" });
+      return;
     }
 
-    // Check if user already submitted a carta for this sobremesa
     const existingCarta = await CartaIntencion.findOne({ sobremesa_id, user_id });
     if (existingCarta) {
-      return res.status(400).json({ message: "You already submitted a carta for this sobremesa" });
+      res.status(400).json({ message: "You already submitted a carta for this sobremesa" });
+      return;
     }
 
     const newCarta = new CartaIntencion({
@@ -54,25 +56,26 @@ router.post("/", authenticateToken, async (req: any, res: Response) => {
     await newCarta.save();
 
     res.status(201).json(newCarta);
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: "Error submitting carta", error: error.message });
   }
 });
 
 // Get all cartas for a sobremesa (convocante only)
-router.get("/sobremesa/:sobremesa_id", authenticateToken, async (req: any, res: Response) => {
+router.get("/sobremesa/:sobremesa_id", authenticateToken, async (req: any, res: Response): Promise<void> => {
   const sobremesa_id = req.params.sobremesa_id;
   const user_id = req.user.id;
 
   try {
-    // Check if user is the convocante
     const sobremesa = await Sobremesa.findById(sobremesa_id);
     if (!sobremesa) {
-      return res.status(404).json({ message: "Sobremesa not found" });
+      res.status(404).json({ message: "Sobremesa not found" });
+      return;
     }
 
     if (sobremesa.convocante_id.toString() !== user_id) {
-      return res.status(403).json({ message: "Only convocante can view cartas" });
+      res.status(403).json({ message: "Only convocante can view cartas" });
+      return;
     }
 
     const cartas = await CartaIntencion.find({ sobremesa_id }).populate(
@@ -81,40 +84,42 @@ router.get("/sobremesa/:sobremesa_id", authenticateToken, async (req: any, res: 
     );
 
     res.json(cartas);
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: "Error fetching cartas", error: error.message });
   }
 });
 
 // Accept/reject carta (convocante only)
-router.patch("/:id/status", authenticateToken, async (req: any, res: Response) => {
-  const { status } = req.body; // 'accepted' or 'rejected'
+router.patch("/:id/status", authenticateToken, async (req: any, res: Response): Promise<void> => {
+  const { status } = req.body;
   const user_id = req.user.id;
 
   if (!["accepted", "rejected"].includes(status)) {
-    return res.status(400).json({ message: "Invalid status" });
+    res.status(400).json({ message: "Invalid status" });
+    return;
   }
 
   try {
     const carta = await CartaIntencion.findById(req.params.id);
     if (!carta) {
-      return res.status(404).json({ message: "Carta not found" });
+      res.status(404).json({ message: "Carta not found" });
+      return;
     }
 
-    // Check if user is the convocante
     const sobremesa = await Sobremesa.findById(carta.sobremesa_id);
     if (!sobremesa) {
-      return res.status(404).json({ message: "Sobremesa not found" });
+      res.status(404).json({ message: "Sobremesa not found" });
+      return;
     }
 
     if (sobremesa.convocante_id.toString() !== user_id) {
-      return res.status(403).json({ message: "Only convocante can accept/reject cartas" });
+      res.status(403).json({ message: "Only convocante can accept/reject cartas" });
+      return;
     }
 
     carta.status = status;
     await carta.save();
 
-    // If accepted, create participacion record
     if (status === "accepted") {
       const participacion = new Participacion({
         sobremesa_id: carta.sobremesa_id,
@@ -125,20 +130,20 @@ router.patch("/:id/status", authenticateToken, async (req: any, res: Response) =
     }
 
     res.json(carta);
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: "Error updating carta status", error: error.message });
   }
 });
 
 // Check if current user has submitted a carta for a sobremesa
-router.get("/check/:sobremesa_id", authenticateToken, async (req: any, res: Response) => {
+router.get("/check/:sobremesa_id", authenticateToken, async (req: any, res: Response): Promise<void> => {
   const sobremesa_id = req.params.sobremesa_id;
   const user_id = req.user.id;
 
   try {
     const carta = await CartaIntencion.findOne({ sobremesa_id, user_id });
     res.json({ has_carta: !!carta, carta: carta || null });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: "Error checking carta", error: error.message });
   }
 });

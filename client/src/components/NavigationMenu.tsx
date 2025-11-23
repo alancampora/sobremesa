@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { Menu, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -23,8 +23,7 @@ const navItems = [
 
 export function NavigationMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, loading: isLoadingUser, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
     logout({

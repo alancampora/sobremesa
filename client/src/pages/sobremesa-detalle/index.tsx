@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { NavigationMenu } from "@/components/navigationMenu";
+import { NavigationMenu } from "@/components/NavigationMenu";
 import { Calendar, Users, AlertCircle, CheckCircle } from "lucide-react";
 
 type Sobremesa = {

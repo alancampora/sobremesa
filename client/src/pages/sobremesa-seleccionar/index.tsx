@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -11,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { NavigationMenu } from "@/components/navigationMenu";
+import { NavigationMenu } from "@/components/NavigationMenu";
 import { Check, X, AlertCircle, Video, CheckCircle } from "lucide-react";
 
 type Carta = {
@@ -340,26 +339,6 @@ export default function SobremesaSeleccionarPage() {
                         Rechazar
                       </Button>
                     </div>
-                  )}
-
-                  {carta.status === "accepted" && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleUpdateStatus(carta._id, "rejected")}
-                    >
-                      Cambiar a rechazado
-                    </Button>
-                  )}
-
-                  {carta.status === "rejected" && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleUpdateStatus(carta._id, "pending")}
-                    >
-                      Volver a pendiente
-                    </Button>
                   )}
                 </CardContent>
               </Card>

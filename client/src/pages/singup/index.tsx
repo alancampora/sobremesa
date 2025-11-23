@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { NavigationMenu } from "@/components/navigationMenu";
+import { NavigationMenu } from "@/components/NavigationMenu";
 import { singup } from "@/api/auth";
 
 export default function SignupPage() {

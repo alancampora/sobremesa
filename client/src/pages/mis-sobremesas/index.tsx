@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { NavigationMenu } from "@/components/navigationMenu";
+import { NavigationMenu } from "@/components/NavigationMenu";
 import { Calendar, Users, Settings, Video } from "lucide-react";
 
 type Sobremesa = {

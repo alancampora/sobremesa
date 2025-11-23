@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { NavigationMenu } from "@/components/navigationMenu";
+import { NavigationMenu } from "@/components/NavigationMenu";
 
 export default function NuevaSobremesaPage() {
   const [title, setTitle] = useState("");

@@ -14,7 +14,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Link, useNavigate } from "react-router";
 import { fetchAuth } from "@/api/auth";
 import { useAuth } from "@/context/auth";
-import { NavigationMenu } from "@/components/navigationMenu";
+import { NavigationMenu } from "@/components/NavigationMenu";
 
 export default function Login() {
   const navigate = useNavigate();

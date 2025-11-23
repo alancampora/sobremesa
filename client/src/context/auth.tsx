@@ -1,5 +1,4 @@
 import { fetchLogout, fetchMe } from "@/api/auth";
-import { IUser as User } from "@common/User";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 type LogoutParams = {

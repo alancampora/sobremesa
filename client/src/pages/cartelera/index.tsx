@@ -9,8 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { NavigationMenu } from "@/components/navigationMenu";
-import { Calendar, Users, Clock } from "lucide-react";
+import { NavigationMenu } from "@/components/NavigationMenu";
+import { Calendar, Users } from "lucide-react";
 
 type Sobremesa = {
   _id: string;

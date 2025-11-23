@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Landing from "@/components/landing";
+import Landing from "@/components/Landing";
 import { useAuth } from "@/context/auth";
 import { useNavigate } from "react-router";
 
@@ -14,10 +14,6 @@ export default function LandingMain() {
     }
   }, [user, loading, navigate]);
 
-  const handleLogin = () => {
-    navigate("/login");
-  };
-
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -27,5 +23,5 @@ export default function LandingMain() {
   }
 
   // Solo mostrar landing si no hay usuario
-  return user ? null : <Landing onLogin={handleLogin} />;
+  return user ? null : <Landing />;
 }

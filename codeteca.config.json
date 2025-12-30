@@ -1,6 +1,7 @@
 {
   "id": "sobremesa",
   "name": "Sobremesa",
+  "slug": "sobremesa",
   "description": "Plataforma de encuentros sincrónicos para conversaciones profundas entre personas. Un espacio para sobremesas virtuales que prioriza el encuentro real sobre la lógica de las redes sociales.",
   "status": "active",
   "repo": "https://github.com/alancampora/sobremesa",

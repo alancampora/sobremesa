@@ -11,5 +11,6 @@
     "react",
     "node",
     "mongo"
-  ]
+  ],
+  "hasDetailedContent": true
 }
